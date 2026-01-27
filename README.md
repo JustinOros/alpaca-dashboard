@@ -96,26 +96,6 @@ Works on all modern browsers:
 - ✅ Safari
 - ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
-## Customization
-
-The dashboard uses CSS variables for easy theming. Edit the `:root` section in the `<style>` tag:
-
-```css
-:root {
-    --bg-primary: #0a0e14;
-    --bg-secondary: #12171f;
-    --bg-card: #1a2332;
-    --accent-green: #00ff88;
-    --accent-red: #ff4466;
-    --accent-blue: #00d4ff;
-    --accent-yellow: #ffcc00;
-    --text-primary: #e6edf3;
-    --text-secondary: #8b949e;
-    --text-muted: #6e7681;
-    --border: #30363d;
-}
-```
-
 ## Security Considerations
 
 - ✅ API credentials are stored only in memory while logged in
@@ -131,18 +111,6 @@ The dashboard uses CSS variables for easy theming. Edit the `:root` section in t
 - Requires active internet connection
 - No historical data or charts
 - Session ends when you close the browser tab or click logout
-
-## Future Enhancements
-
-Potential features for future versions:
-- [ ] Historical performance charts
-- [ ] Order history view
-- [ ] Watchlist functionality
-- [ ] Price alerts
-- [ ] Dark/light theme toggle
-- [ ] Export data to CSV
-- [ ] Multiple account switching
-- [ ] PWA support for offline capability
 
 ## Contributing
 
