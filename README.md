@@ -30,19 +30,19 @@ A sleek, mobile-optimized web dashboard for monitoring your Alpaca trading accou
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/alpaca-dashboard.git
+git clone https://github.com/JustinOros/alpaca-dashboard.git
 cd alpaca-dashboard
 ```
 
 2. Ensure `alpaca.png` logo file is in the same directory as `alpaca-dashboard.html`
 
-3. Open `alpaca-dashboard.html` in your web browser
+3. Open `index.html` in your web browser
 
 That's it! No build process, no dependencies to install.
 
 ## Usage
 
-1. Open `alpaca-dashboard.html` in your web browser
+1. Open `index.html` in your web browser
 2. Enter your Alpaca API Key and API Secret
 3. Click **GO!** to connect to your account
 4. View your portfolio data and positions
