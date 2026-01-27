@@ -42,6 +42,11 @@ That's it! No build process, no dependencies to install.
 
 ## Usage
 
+Access site using GitHub Pages:
+[https://justinoros.github.io/alpaca-dashboard](https://justinoros.github.io/alpaca-dashboard)
+
+Or...
+
 1. Open `index.html` in your web browser
 2. Enter your Alpaca API Key and API Secret
 3. Click **GO!** to connect to your account
