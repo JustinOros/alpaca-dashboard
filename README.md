@@ -1,5 +1,7 @@
 # Alpaca Dashboard
 
+![Dashboard Preview](screenshot.png)
+
 A sleek, mobile-optimized web dashboard for monitoring your Alpaca trading account in real-time. Built with vanilla HTML, CSS, and JavaScript—no frameworks required.
 
 ![Alpaca Dashboard](https://img.shields.io/badge/status-active-success)
@@ -14,10 +16,6 @@ A sleek, mobile-optimized web dashboard for monitoring your Alpaca trading accou
 - 📊 **Portfolio Overview** - View equity, cash, buying power, and daily P&L at a glance
 - 📈 **Position Tracking** - Monitor all positions with profit/loss calculations
 - 🔄 **Auto-Detection** - Automatically detects Paper vs Live trading accounts
-
-## Demo
-
-![Dashboard Preview](screenshot.png)
 
 ## Getting Started
 
@@ -34,15 +32,13 @@ git clone https://github.com/JustinOros/alpaca-dashboard.git
 cd alpaca-dashboard
 ```
 
-2. Ensure `alpaca.png` logo file is in the same directory as `alpaca-dashboard.html`
-
-3. Open `index.html` in your web browser
+2. Open `index.html` in your web browser
 
 That's it! No build process, no dependencies to install.
 
 ## Usage
 
-Access site using GitHub Pages:
+Access Alpaca Dashboard using GitHub Pages:
 [https://justinoros.github.io/alpaca-dashboard](https://justinoros.github.io/alpaca-dashboard)
 
 Or...
