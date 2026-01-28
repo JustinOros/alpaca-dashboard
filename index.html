@@ -335,6 +335,48 @@
             border: 1px solid var(--accent-green);
         }
 
+        .account-number {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .account-number:hover {
+            color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .account-number:active {
+            transform: scale(0.95);
+        }
+
+        .account-number.copied::after {
+            content: 'Copied!';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            animation: fadeOut 2s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
         .btn-logout {
             padding: 8px 16px;
             background: transparent;
@@ -637,7 +679,11 @@
             <div class="dashboard-header">
                 <div class="account-info">
                     <span class="status-badge status-active">● LIVE</span>
-                    <span id="accountNumber" style="font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); font-size: 14px;"></span>
+                    <span id="accountNumber" class="account-number" 
+                          onmouseenter="revealAccountNumber()" 
+                          onmouseleave="hideAccountNumber()"
+                          onclick="copyAccountNumber(event)"
+                          oncontextmenu="copyAccountNumber(event)">#PA••••••••</span>
                 </div>
                 <button class="btn-logout" onclick="logout()">Logout</button>
             </div>
@@ -674,6 +720,9 @@
         let API_KEY = '';
         let API_SECRET = '';
         let BASE_URL = 'https://paper-api.alpaca.markets'; // Default to paper trading
+        let ACCOUNT_NUMBER = '';
+        let hideTimeout = null;
+        let isRevealed = false;
 
         async function login() {
             const apiKey = document.getElementById('apiKey').value.trim();
@@ -747,8 +796,10 @@
         }
 
         function displayAccount(account) {
-            document.getElementById('accountNumber').textContent = `#${account.account_number}`;
-
+            ACCOUNT_NUMBER = account.account_number;
+            // Set initial display with first 3 characters visible
+            updateAccountDisplay();
+            
             const equity = parseFloat(account.equity);
             const cash = parseFloat(account.cash);
             const buyingPower = parseFloat(account.buying_power);
@@ -787,6 +838,75 @@
                     ${stat.change ? `<div class="stat-change ${stat.class}">${stat.change}</div>` : ''}
                 </div>
             `).join('');
+        }
+
+        function getPartialAccountNumber() {
+            // Show first 3 characters after # and mask the rest
+            const prefix = ACCOUNT_NUMBER.substring(0, 2); // PA or similar
+            const dots = '•'.repeat(ACCOUNT_NUMBER.length - 2);
+            return `#${prefix}${dots}`;
+        }
+
+        function updateAccountDisplay() {
+            const accountElement = document.getElementById('accountNumber');
+            if (isRevealed) {
+                accountElement.textContent = `#${ACCOUNT_NUMBER}`;
+            } else {
+                accountElement.textContent = getPartialAccountNumber();
+            }
+        }
+
+        function revealAccountNumber() {
+            // Clear any pending hide timeout
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+            
+            isRevealed = true;
+            updateAccountDisplay();
+        }
+
+        function hideAccountNumber() {
+            // Only hide if not clicked (click sets a 5 second timer)
+            if (!hideTimeout) {
+                isRevealed = false;
+                updateAccountDisplay();
+            }
+        }
+
+        function copyAccountNumber(event) {
+            event.preventDefault();
+            const accountElement = document.getElementById('accountNumber');
+            
+            // Reveal the account number
+            isRevealed = true;
+            updateAccountDisplay();
+            
+            // Clear any existing timeout
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(`#${ACCOUNT_NUMBER}`).then(() => {
+                // Add copied class for visual feedback
+                accountElement.classList.add('copied');
+                
+                // Remove the copied class after animation completes
+                setTimeout(() => {
+                    accountElement.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+            
+            // Set a timeout to hide after 5 seconds
+            hideTimeout = setTimeout(() => {
+                isRevealed = false;
+                updateAccountDisplay();
+                hideTimeout = null;
+            }, 5000);
         }
 
         function displayPositions(positions) {
@@ -838,6 +958,12 @@
         function logout() {
             API_KEY = '';
             API_SECRET = '';
+            ACCOUNT_NUMBER = '';
+            isRevealed = false;
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
             document.getElementById('apiKey').value = '';
             document.getElementById('apiSecret').value = '';
             document.getElementById('loginForm').style.display = 'block';
