@@ -283,20 +283,6 @@
             70%{opacity:1;}
             100%{opacity:0;}
         }
-        .btn-logout{
-            padding:8px 16px;
-            background:transparent;
-            border:1px solid var(--border);
-            border-radius:6px;
-            color:var(--text-secondary);
-            font-size:14px;
-            cursor:pointer;
-            transition:all .3s ease;
-        }
-        .btn-logout:hover{
-            border-color:var(--accent-red);
-            color:var(--accent-red);
-        }
         .stats-grid{
             display:grid;
             grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -363,14 +349,6 @@
             align-items:center;
             gap:8px;
         }
-        /* The green bar before section titles has been removed */
-        /* .section-title::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: var(--accent-green);
-            border-radius: 2px;
-        } */
         .positions-container{
             background:var(--bg-card);
             border:1px solid var(--border);
@@ -475,9 +453,58 @@
         .refreshing{
             animation:pulse 1.5s ease-in-out infinite;
         }
+
+        /* -----------------------------------------------------------------
+           Hamburger menu – hidden until login succeeds
+        ----------------------------------------------------------------- */
+        .hamburger{
+            position:fixed;
+            top:20px;
+            right:20px;
+            font-size:28px;
+            cursor:pointer;
+            color:var(--text-primary);
+            z-index:10;
+            display:none;   /* hidden on the login page */
+        }
+        .menu{
+            position:fixed;
+            top:60px;
+            right:20px;
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:8px;
+            padding:8px 0;
+            display:none;
+            min-width:120px;
+            box-shadow:0 4px 12px rgba(0,0,0,.4);
+            z-index:10;
+        }
+        .menu.show{
+            display:block;
+        }
+        .menu-item{
+            width:100%;
+            padding:8px 16px;
+            background:none;
+            border:none;
+            text-align:left;
+            color:var(--text-primary);
+            font-family:'Outfit',sans-serif;
+            font-size:14px;
+            cursor:pointer;
+        }
+        .menu-item:hover{
+            background:var(--bg-secondary);
+        }
     </style>
 </head>
 <body>
+    <div id="menuToggle" class="hamburger">☰</div>
+    <div id="menu" class="menu">
+        <button id="menuLogout" class="menu-item">Logout</button>
+    </div>
+
     <div class="container">
         <header>
             <div class="logo-container">
@@ -530,9 +557,12 @@
             <div class="dashboard-header">
                 <div class="account-info">
                     <span id="tradingModeBadge" class="status-badge status-active">● LIVE</span>
-                    <span id="accountNumber" class="account-number" onmouseenter="revealAccountNumber()" onmouseleave="hideAccountNumber()" onclick="copyAccountNumber(event)" oncontextmenu="copyAccountNumber(event)">#PA••••••••</span>
+                    <span id="accountNumber" class="account-number"
+                          onmouseenter="revealAccountNumber()"
+                          onmouseleave="hideAccountNumber()"
+                          onclick="copyAccountNumber(event)"
+                          oncontextmenu="copyAccountNumber(event)">#PA••••••••</span>
                 </div>
-                <button class="btn-logout" onclick="logout()">Logout</button>
             </div>
 
             <div class="stats-grid" id="statsGrid"></div>
@@ -596,6 +626,8 @@
                     updateTradingModeBadge(tradingMode);
                     document.getElementById('loginForm').style.display = 'none';
                     document.getElementById('dashboard').style.display = 'block';
+                    // show hamburger now that the user is logged in
+                    document.getElementById('menuToggle').style.display = 'block';
                     await loadDashboard();
                     setInterval(loadDashboard, 30000);
                     return;
@@ -789,7 +821,32 @@
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('loginError').innerHTML = '';
+            // hide hamburger again
+            document.getElementById('menuToggle').style.display = 'none';
+            document.getElementById('menu').classList.remove('show');
         }
+
+        /* -----------------------------------------------------------------
+           Hamburger menu logic
+        ----------------------------------------------------------------- */
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('menu').classList.toggle('show');
+        });
+
+        document.getElementById('menuLogout').addEventListener('click', () => {
+            document.getElementById('menu').classList.remove('show');
+            logout();
+        });
+
+        // Close menu when clicking outside of it
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('menu');
+            const toggle = document.getElementById('menuToggle');
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
+
