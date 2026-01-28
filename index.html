@@ -363,13 +363,14 @@
             align-items:center;
             gap:8px;
         }
-        .section-title::before{
-            content:'';
-            width:4px;
-            height:20px;
-            background:var(--accent-green);
-            border-radius:2px;
-        }
+        /* The green bar before section titles has been removed */
+        /* .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        } */
         .positions-container{
             background:var(--bg-card);
             border:1px solid var(--border);
@@ -536,7 +537,6 @@
 
             <div class="stats-grid" id="statsGrid"></div>
 
-            <h2 class="section-title">Positions</h2>
             <div class="positions-container">
                 <div class="positions-scroll">
                     <table id="positionsTable">
