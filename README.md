@@ -71,4 +71,4 @@ For informational purposes only. Not financial advice. Developer not affiliated 
 
 ---
 
-**Built for traders who want a simple, clean portfolio view**
+**Built for traders who want a simple, clean portfolio view.**
