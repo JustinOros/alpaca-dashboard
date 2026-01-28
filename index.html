@@ -241,6 +241,11 @@
             color:var(--accent-green);
             border:1px solid var(--accent-green);
         }
+        .status-paper{
+            background:rgba(0,212,255,.15);
+            color:var(--accent-blue);
+            border:1px solid var(--accent-blue);
+        }
         .account-number{
             font-family:'JetBrains Mono',monospace;
             color:var(--text-secondary);
@@ -523,7 +528,7 @@
         <div id="dashboard">
             <div class="dashboard-header">
                 <div class="account-info">
-                    <span class="status-badge status-active">● LIVE</span>
+                    <span id="tradingModeBadge" class="status-badge status-active">● LIVE</span>
                     <span id="accountNumber" class="account-number" onmouseenter="revealAccountNumber()" onmouseleave="hideAccountNumber()" onclick="copyAccountNumber(event)" oncontextmenu="copyAccountNumber(event)">#PA••••••••</span>
                 </div>
                 <button class="btn-logout" onclick="logout()">Logout</button>
@@ -588,6 +593,7 @@
                 });
 
                 if (response.ok) {
+                    updateTradingModeBadge(tradingMode);
                     document.getElementById('loginForm').style.display = 'none';
                     document.getElementById('dashboard').style.display = 'block';
                     await loadDashboard();
@@ -599,6 +605,19 @@
             }
 
             errorDiv.innerHTML = '<div class="error">Invalid credentials. Please check your API Key and Secret.</div>';
+        }
+
+        function updateTradingModeBadge(mode) {
+            const badge = document.getElementById('tradingModeBadge');
+            if (!badge) return;
+            badge.classList.remove('status-active', 'status-paper');
+            if (mode === 'live') {
+                badge.classList.add('status-active');
+                badge.textContent = '● LIVE TRADING';
+            } else {
+                badge.classList.add('status-paper');
+                badge.textContent = '● PAPER TRADING';
+            }
         }
 
         async function loadDashboard() {
