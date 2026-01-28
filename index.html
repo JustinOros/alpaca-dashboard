@@ -281,6 +281,24 @@
             cursor: not-allowed;
         }
 
+        .api-key-info {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .api-key-info a {
+            color: var(--accent-green);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .api-key-info a:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
         /* Dashboard */
         #dashboard {
             display: none;
@@ -607,6 +625,9 @@
                     >
                 </div>
                 <button class="btn-go" onclick="login()">GO!</button>
+                <div class="api-key-info">
+                    Visit <a href="https://alpaca.markets" target="_blank">Alpaca Markets</a> to get your API key.
+                </div>
                 <div id="loginError"></div>
             </div>
         </div>
