@@ -2,6 +2,8 @@
 
 A clean, mobile-optimized web dashboard for monitoring your Alpaca trading account in real-time.
 
+![Dashboard Preview](screenshot.png)
+
 ## Features
 
 - 📱 Mobile-first responsive design
