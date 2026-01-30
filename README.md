@@ -1,6 +1,6 @@
 # Alpaca Dashboard
 
-A clean, mobile-optimized web dashboard for monitoring your Alpaca trading account in real-time.
+A web dashboard for monitoring your Alpaca trading account in real-time.
 
 ![Dashboard Preview](screenshot.png)
 
