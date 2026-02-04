@@ -435,13 +435,30 @@
         }
         @media (max-width:768px){
             .container{
-                padding:12px;
+                padding:8px;
             }
             header{
-                padding:20px 0 20px;
+                padding:12px 0 12px;
+            }
+            .logo-image{
+                width:120px;
+            }
+            .logo{
+                font-size:24px;
+            }
+            .tagline{
+                font-size:12px;
             }
             .stats-grid{
                 grid-template-columns:1fr;
+                gap:8px;
+                margin-bottom:12px;
+            }
+            .stat-card{
+                padding:12px;
+            }
+            .dashboard-header{
+                margin-bottom:12px;
             }
             th,td{
                 padding:12px 8px;
@@ -460,9 +477,6 @@
             animation:pulse 1.5s ease-in-out infinite;
         }
 
-        /* -----------------------------------------------------------------
-           Hamburger menu – hidden until login succeeds
-        ----------------------------------------------------------------- */
         .hamburger{
             position:fixed;
             top:20px;
@@ -471,7 +485,7 @@
             cursor:pointer;
             color:var(--text-primary);
             z-index:10;
-            display:none;   /* hidden on the login page */
+            display:none;
         }
         .menu{
             position:fixed;
@@ -632,7 +646,6 @@
                     updateTradingModeBadge(tradingMode);
                     document.getElementById('loginForm').style.display = 'none';
                     document.getElementById('dashboard').style.display = 'block';
-                    // show hamburger now that the user is logged in
                     document.getElementById('menuToggle').style.display = 'block';
                     await loadDashboard();
                     setInterval(loadDashboard, 30000);
@@ -827,14 +840,10 @@
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('loginError').innerHTML = '';
-            // hide hamburger again
             document.getElementById('menuToggle').style.display = 'none';
             document.getElementById('menu').classList.remove('show');
         }
 
-        /* -----------------------------------------------------------------
-           Hamburger menu logic
-        ----------------------------------------------------------------- */
         document.getElementById('menuToggle').addEventListener('click', () => {
             document.getElementById('menu').classList.toggle('show');
         });
@@ -844,7 +853,6 @@
             logout();
         });
 
-        // Close menu when clicking outside of it
         document.addEventListener('click', (e) => {
             const menu = document.getElementById('menu');
             const toggle = document.getElementById('menuToggle');
