@@ -644,9 +644,11 @@
 
                 if (response.ok) {
                     updateTradingModeBadge(tradingMode);
+                    document.activeElement.blur();
                     document.getElementById('loginForm').style.display = 'none';
                     document.getElementById('dashboard').style.display = 'block';
                     document.getElementById('menuToggle').style.display = 'block';
+                    window.scrollTo(0, 0);
                     await loadDashboard();
                     setInterval(loadDashboard, 30000);
                     return;
