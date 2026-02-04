@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.95">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpaca Dashboard</title>
     <link rel="icon" type="image/png" href="alpaca.png">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -37,11 +37,11 @@
             z-index:1;
             max-width:1200px;
             margin:0 auto;
-            padding:20px 16px;
+            padding:12px 12px;
         }
         header{
             text-align:center;
-            padding:40px 0 30px;
+            padding:20px 0 16px;
             animation:slideDown .6s ease-out;
         }
         @keyframes slideDown{
@@ -219,7 +219,7 @@
             display:flex;
             justify-content:space-between;
             align-items:center;
-            margin-bottom:24px;
+            margin-bottom:16px;
             flex-wrap:wrap;
             gap:12px;
         }
@@ -292,14 +292,14 @@
         .stats-grid{
             display:grid;
             grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
-            gap:16px;
-            margin-bottom:24px;
+            gap:12px;
+            margin-bottom:20px;
         }
         .stat-card{
             background:var(--bg-card);
             border:1px solid var(--border);
             border-radius:12px;
-            padding:20px;
+            padding:16px;
             transition:all .3s ease;
             position:relative;
             overflow:hidden;
